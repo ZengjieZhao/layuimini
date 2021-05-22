@@ -1,0 +1,43 @@
+{
+    "code": 0,
+    "msg": "",
+    "count": 4,
+    "data": [
+        {
+            "id": 1,
+            "username": "张三1",
+            "sex": "女",
+            "phone": "13393761278",
+            "studentid": "10011101123456",
+            "college": "信息学院",
+            "major": "软件工程",
+            "grade": 2011,
+            "class": 1,
+            "credit":100
+        },
+        {
+            "id": 2,
+            "username": "张三2",
+            "sex": "男",
+            "phone": "13393761278",
+            "studentid": "10011101123455",
+            "college": "信息学院",
+            "major": "软件工程",
+            "grade": 2011,
+            "class": 1,
+            "credit":100
+        },
+        {
+            "id": 3,
+            "username": "张三3",
+            "sex": "男",
+            "phone": "13393761271",
+            "studentid": "10011101123466",
+            "college": "信息学院",
+            "major": "软件工程",
+            "grade": 2011,
+            "class": 1,
+            "credit":10
+        }
+    ]
+}
