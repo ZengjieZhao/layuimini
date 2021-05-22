@@ -46,7 +46,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/api/table.json',
+            url: '/api/umbrellaSites.json',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -56,7 +56,7 @@
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'umbrellaid', width: 80, title: '伞位ID'},
+                {field: 'uid', width: 80, title: '伞位ID'},
                 {field: 'status', width: 80, title: '状态', sort: true},
                 {field: 'debtor', width: 150, title: '借方', sort: true},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
@@ -92,7 +92,7 @@
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {   // 监听添加操作
-                var content = miniPage.getHrefContent('/page/table/add.html');
+                var content = miniPage.getHrefContent('/page/add-umbrella.html');
                 var openWH = miniPage.getOpenWidthHeight();
 
                 var index = layer.open({
