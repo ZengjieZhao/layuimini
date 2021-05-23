@@ -107,6 +107,7 @@
         // 进行注册操作
         form.on('submit(register)', function (data) {
             data = data.field;
+            console.log(data);
             if (data.username == '') {
                 layer.msg('用户名不能为空');
                 return false;
@@ -115,33 +116,27 @@
                 layer.msg('密码不能为空');
                 return false;
             }
-            //layer
-            // $.ajax(
-            //     {
-            //         url: "http://127.0.0.1:8088/user/login",
-            //         method: "post",
-            //         dataType: 'json',
-            //         contentType: 'application/json;charset=UTF-8',
-            //         data: JSON.stringify(data),
-            //         success: function (res) {
-            //             console.log('success');
-            //             console.log(res);
-            //             // var d = new Date();
-            //             // d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
-            //             // var expires = "expires=" + d.toGMTString();
-            //             // document.cookie = "admin_name" + "=" + "admin" + "; " + expires;
-            //             $.cookie('customer_username', res.data.username);
-            //             layer.msg('登录成功', function () {
-            //                 window.location = '/page/user/index.html';
-            //             });
-            //         },
-            //         error: function (res) {
-            //             console.log('error');
-            //             console.log(res);
-            //             layer.msg('登录失败！');
-            //         }
-            //     }
-            // );
+            $.ajax(
+                {
+                    url: "http://127.0.0.1:8088/user/register",
+                    method: "post",
+                    dataType: 'json',
+                    contentType: 'application/json;charset=UTF-8',
+                    data: JSON.stringify(data),
+                    success: function (res) {
+                        console.log('success');
+                        console.log(res);
+                        layer.msg('注册成功,正在跳转到登录界面，请稍后......', function () {
+                            window.location = '/page/user/login.html';
+                        });
+                    },
+                    error: function (res) {
+                        console.log('error');
+                        console.log(res);
+                        layer.msg('注册失败！请检查参数！');
+                    }
+                }
+            );
             return false;
         });
     });
