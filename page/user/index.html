@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Borrow Umbrella 后台管理系统</title>
-    <meta name="keywords" content="Borrow An Umbrella 后台管理系统">
-    <meta name="description" content="Borrow An Umbrella 后台管理系统">
+    <title>Borrow Umbrella 用户控制台</title>
+    <meta name="keywords" content="Borrow An Umbrella 用户控制台">
+    <meta name="description" content="Borrow An Umbrella 用户控制台">
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -64,7 +64,7 @@
                         <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
                     </li>
                     <li class="layui-nav-item layuimini-setting">
-                        <a href="javascript:;">admin</a>
+                        <a id="customer_username" href="javascript:;">admin</a>
                         <dl class="layui-nav-child">
                             <!-- <dd>
                                 <a href="javascript:;" layuimini-content-href="/page/admin/user-setting.html"
@@ -144,11 +144,12 @@
                 pageAnim: true,             // 切换菜单动画
             };
             miniAdmin.render(options);
-            var hhhhhhhhhh = $.cookie('hhhhhhhhhh');
-            console.log(hhhhhhhhhh);
+            var customer_username = $.cookie('customer_username');
+            console.log(customer_username);
+            $('#customer_username').text(customer_username);
             $('.login-out').on("click", function () {
                 layer.msg('退出登录成功', function () {
-                    window.location = '/page/admin/login.html';
+                    window.location = '/page/user/login.html';
                 });
             });
         });

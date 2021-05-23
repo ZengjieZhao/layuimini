@@ -46,7 +46,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: 'http://59.110.228.160:8088/admin/umbrella',
+            url: 'http://127.0.0.1:8088/user/umbrella',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -58,7 +58,6 @@
                 { field: 'id', width: 80, title: 'ID', sort: true },
                 { field: 'uid', width: 80, title: '伞ID' },
                 { field: 'status', width: 80, title: '状态', sort: true },
-                { field: 'debtor', width: 150, title: '借方', sort: true },
                 { title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center" }
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -86,101 +85,5 @@
 
             return false;
         });
-
-        /**
-         * toolbar事件监听
-         */
-        table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {   // 监听添加操作
-                var content = miniPage.getHrefContent('/page/add-umbrella.html');
-                var openWH = miniPage.getOpenWidthHeight();
-
-                var index = layer.open({
-                    title: '添加伞',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            }
-        });
-
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-        });
-
-        table.on('tool(currentTableFilter)', function (obj) {
-            var data = obj.data;
-            if (obj.event === 'edit') {
-
-                var content = miniPage.getHrefContent('/page/table/add.html');
-                var openWH = miniPage.getOpenWidthHeight();
-
-                var index = layer.open({
-                    title: '编辑用户',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin: true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'delete') {
-                layer.confirm('确定删除该伞？', function (index) {
-                    $.ajax(
-                        {
-                            url: "http://59.110.228.160:8088/admin/umbrella?id=" + data.id,
-                            method: "delete",
-                            dataType: 'json',
-                            success: function (res) {
-                                console.log('success');
-                                console.log(res);
-                                var index = layer.msg('删除伞成功!', function () {
-                                    // 关闭弹出层
-                                    layer.close(index);
-                                    //执行重载
-                                    table.reload('currentTableId', {
-                                        page: {
-                                            curr: 1 //重新从第 1 页开始
-                                        }
-                                        , where: {
-                                        }
-                                    });
-                                });
-                            },
-                            error: function (res) {
-                                console.log('error');
-                                console.log(res);
-                                var index = layer.msg('删除伞失败!', function () {
-                                    // 关闭弹出层
-                                    layer.close(index);
-                                    //执行重载
-                                    table.reload('currentTableId', {
-                                        page: {
-                                            curr: 1 //重新从第 1 页开始
-                                        }
-                                        , where: {
-                                        }
-                                    });
-                                });
-                            }
-                        }
-                    );
-                });
-            }
-        });
-
     });
 </script>

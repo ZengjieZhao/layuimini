@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>后台管理-登陆</title>
+    <title>用户登陆</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -303,7 +303,7 @@
     <div class="main-body">
         <div class="login-main">
             <div class="login-top">
-                <span>借把伞后台登录</span>
+                <span>借把伞用户登录</span>
                 <span class="bg1"></span>
                 <span class="bg2"></span>
             </div>
@@ -311,7 +311,7 @@
                 <div class="center">
                     <div class="item">
                         <span class="icon icon-2"></span>
-                        <input type="text" name="username" lay-verify="required" placeholder="请输入登录账号" maxlength="24" />
+                        <input type="text" name="username" lay-verify="required" placeholder="请输入用户名" maxlength="24" />
                     </div>
 
                     <div class="item">
@@ -363,7 +363,7 @@
                 }
                 $.ajax(
                     {
-                        url: "http://59.110.228.160:8088/admin/login",
+                        url: "http://127.0.0.1:8088/user/login",
                         method: "post",
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
@@ -375,14 +375,15 @@
                             // d.setTime(d.getTime() + (1 * 24 * 60 * 60 * 1000));
                             // var expires = "expires=" + d.toGMTString();
                             // document.cookie = "admin_name" + "=" + "admin" + "; " + expires;
-                            $.cookie('hhhhhhhhhh', 'hhhhhhhhhh');
+                            $.cookie('customer_username',res.data.username);
                             layer.msg('登录成功', function () {
-                                window.location = '/page/admin/index.html';
+                                window.location = '/page/user/index.html';
                             });
                         },
                         error: function (res) {
                             console.log('error');
                             console.log(res);
+                            layer.msg('登录失败！');
                         }
                     }
                 );
