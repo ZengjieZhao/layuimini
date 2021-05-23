@@ -20,7 +20,7 @@
                     <div class="layui-card-body">
                         <div class="layui-row layui-col-space5">
                             <div class="layui-col-xs12 layui-col-md12 top-panel-number">
-                                9,054,056
+                               1
                             </div>
                         </div>
                     </div>
@@ -33,8 +33,8 @@
                     <div class="layui-card-header">注册用户数量</div>
                     <div class="layui-card-body">
                         <div class="layui-row layui-col-space5">
-                            <div class="layui-col-xs12 layui-col-md12 top-panel-number">
-                                9,054,056
+                            <div id="user-number" class="layui-col-xs12 layui-col-md12 top-panel-number">
+                                
                             </div>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                     <div class="layui-card-header">伞借出数量</div>
                     <div class="layui-card-body">
                         <div class="layui-row layui-col-space5">
-                            <div class="layui-col-xs12 layui-col-md12 top-panel-number">
-                                9,054,056
+                            <div id="umbrella-borrowed-number" class="layui-col-xs12 layui-col-md12 top-panel-number">
+                                
                             </div>
                         </div>
                     </div>
@@ -61,8 +61,8 @@
                     <div class="layui-card-header">伞剩余数量</div>
                     <div class="layui-card-body">
                         <div class="layui-row layui-col-space5">
-                            <div class="layui-col-xs12 layui-col-md12 top-panel-number">
-                                9,054,056
+                            <div  id="umbrella-insite-number" class="layui-col-xs12 layui-col-md12 top-panel-number">
+                                
                             </div>
                         </div>
                     </div>
@@ -98,5 +98,34 @@
     // 点标记添加点击事件
     marker1.addEventListener('click', function () {
         map.openInfoWindow(infoWindow, point); // 开启信息窗口
+    });
+    layui.use(['form', 'jquery'], function () {
+            var $ = layui.jquery;
+            var unum = "";
+            var umbnum = "";
+            var uminum = "";
+            $.ajax(
+                    {
+                        url: "http://59.110.228.160:8088/admin/statistic",
+                        method: "get",
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log('success');
+                            console.log(res);
+                            unum = res.data.unum;
+                            umbnum = res.data.umbnum;
+                            uminum =  res.data.uminum;
+                            $('#user-number').empty();
+                            $('#user-number').append(unum);
+                            $('#umbrella-borrowed-number').empty();
+                            $('#umbrella-borrowed-number').append(umbnum);
+                            $('#umbrella-insite-number').empty();
+                            $('#umbrella-insite-number').append(uminum);
+                        },
+                        error: function (res) {
+                            layer.msg('获取统计数据失败');
+                        }
+                    }
+                );
     });
 </script>

@@ -27,7 +27,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '../../api/users.json',
+            url: 'http://59.110.228.160:8088/admin/user',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -40,12 +40,12 @@
                 { field: 'username', width: 80, title: '姓名' },
                 { field: 'sex', width: 80, title: '性别', sort: true },
                 { field: 'phone', width: 130, title: '电话' },
-                { field: 'studentid', title: '学号', width: 150 },
-                { field: 'college', width: 100, title: '学院', sort: true , hide:true},
+                { field: 'cardid', title: '卡号', width: 150 },
+                { field: 'college', width: 100, title: '学院', sort: true, hide: true },
                 { field: 'major', width: 100, title: '专业', sort: true },
                 { field: 'grade', width: 80, title: '年级' },
-                { field: 'class', width: 80, title: '班级', sort: true },
-                { field: 'credit', width: 80, title: '信用', sort: true},
+                { field: 'classes', width: 80, title: '班级', sort: true },
+                { field: 'credit', width: 80, title: '信用', sort: true },
                 { title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center" }
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -73,13 +73,13 @@
                     success: function (layero, index) {
                         layero.find("input[name='id']").val(data.id);
                         layero.find("input[name='username']").val(data.username);
-                        layero.find("input:radio[name='sex'][value='"+data.sex+"']").attr("checked",true);
+                        layero.find("input:radio[name='sex'][value='" + data.sex + "']").attr("checked", true);
                         layero.find("input[name='phone']").val(data.phone);
-                        layero.find("input[name='studentid']").val(data.studentid);
+                        layero.find("input[name='cardid']").val(data.cardid);
                         layero.find("input[name='college']").val(data.college);
                         layero.find("input[name='major']").val(data.major);
                         layero.find("input[name='grade']").val(data.grade);
-                        layero.find("input[name='class']").val(data.class);
+                        layero.find("input[name='classes']").val(data.classes);
                         layero.find("input[name='credit']").val(data.credit);
                         form.render();//一定要加 form.render(); 重新渲染表单 要不然是不会生效的
                     }
@@ -90,9 +90,74 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('确定删除该用户？', function (index) {
-                    obj.del();
-                    layer.close(index);
+                    $.ajax(
+                        {
+                            url: "http://59.110.228.160:8088/admin/user?id=" + data.id,
+                            method: "delete",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log('success');
+                                console.log(res);
+                                var index = layer.msg('删除用户成功!', function () {
+                                    // 关闭弹出层
+                                    layer.close(index);
+                                    //执行重载
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                        , where: {
+                                        }
+                                    });
+                                });
+                            },
+                            error: function (res) {
+                                console.log('error');
+                                console.log(res);
+                                var index = layer.msg('删除用户失败!', function () {
+                                    // 关闭弹出层
+                                    layer.close(index);
+                                    //执行重载
+                                    table.reload('currentTableId', {
+                                        page: {
+                                            curr: 1 //重新从第 1 页开始
+                                        }
+                                        , where: {
+                                        }
+                                    });
+                                });
+                            }
+                        }
+                    );
                 });
+            } else if (obj.event === 'reset-password') {
+                $.ajax(
+                    {
+                        url: "http://59.110.228.160:8088/admin/user/reset_password?id=" + data.id,
+                        method: "put",
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log('success');
+                            console.log(res);
+                            var index = layer.msg('密码重置成功!', function () {
+                                // 关闭弹出层
+                                layer.close(index);
+                                //执行重载
+                                table.reload('currentTableId', {
+                                    page: {
+                                        curr: 1 //重新从第 1 页开始
+                                    }
+                                    , where: {
+                                    }
+                                });
+                            });
+                        },
+                        error: function (res) {
+                            console.log('error');
+                            console.log(res);
+                        }
+                    }
+                );
             }
         });
 

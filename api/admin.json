@@ -1,0 +1,11 @@
+{
+    "code": 0,
+    "msg": "",
+    "data":{
+        "username":"admin",
+        "password":"123456",
+        "phone":"13456782134",
+        "email":"",
+        "remark":""
+    }
+}

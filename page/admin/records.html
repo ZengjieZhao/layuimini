@@ -6,7 +6,7 @@
 <!--         {
             "id":"bau1001",
             "uid":"112897",
-            "studentid":"10011101123456",
+            "cardid":"10011101123456",
             "action":"借伞",
             "timestamp":"2021-05-01 15:39:20"
         }, -->
@@ -19,7 +19,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '../../api/records.json',
+            url: 'http://59.110.228.160:8088/admin/records',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -28,14 +28,14 @@
             }],
             cols: [[
                 {field: 'id', minWidth: 80, title: 'ID', sort: true},
-                {field: 'uid', minWidth: 80, title: '伞位ID'},
-                {field: 'studentid', minWidth: 150, title: '学号', sort: true},
+                {field: 'uid', minWidth: 80, title: '伞ID'},
+                {field: 'cardid', minWidth: 150, title: '卡号', sort: true},
                 {field: 'action', width: 80, title: '操作'},
                 {field: 'timestamp', title: '时间', minWidth: 150}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
-            page: true,
+            page: false,
             skin: 'line'
         });
     });
