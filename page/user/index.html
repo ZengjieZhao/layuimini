@@ -64,7 +64,7 @@
                         <a href="javascript:;" data-check-screen="full"><i class="fa fa-arrows-alt"></i></a>
                     </li>
                     <li class="layui-nav-item layuimini-setting">
-                        <a id="customer_username" href="javascript:;">admin</a>
+                        <a id="customer_username" href="javascript:;"></a>
                         <dl class="layui-nav-child">
                             <!-- <dd>
                                 <a href="javascript:;" layuimini-content-href="/page/admin/user-setting.html"
@@ -145,8 +145,8 @@
             };
             miniAdmin.render(options);
             var customer_username = $.cookie('customer_username');
-            console.log(customer_username);
             $('#customer_username').text(customer_username);
+            console.log('index get login user:'+customer_username);
             $('.login-out').on("click", function () {
                 layer.msg('退出登录成功', function () {
                     window.location = '/page/user/login.html';

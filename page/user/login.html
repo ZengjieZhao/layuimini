@@ -366,7 +366,7 @@
                 }
                 $.ajax(
                     {
-                        url: "http://59.110.228.160:8088/user/login",
+                        url: "http://127.0.0.1:8088/user/login",
                         method: "post",
                         dataType: 'json',
                         contentType: 'application/json;charset=UTF-8',
@@ -379,6 +379,8 @@
                             // var expires = "expires=" + d.toGMTString();
                             // document.cookie = "admin_name" + "=" + "admin" + "; " + expires;
                             $.cookie('customer_username',res.data.username);
+                            $.cookie('customer_cardid',res.data.cardid);
+                            console.log('login->login user cardid:'+res.data.cardid);
                             layer.msg('登录成功', function () {
                                 window.location = '/page/user/index.html';
                             });
